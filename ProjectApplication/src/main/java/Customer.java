@@ -5,14 +5,14 @@ public class Customer{
     private int id;
     private String firstname, lastname,email,phone;
 
-    public Customer(ArrayList<Customer> customers, String firstname, String lastname, String email){
+    public Customer(String firstname, String lastname, String email){
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         id = ++maxId;
     }
 
-    public Customer(ArrayList<Customer> customers,String firstname, String lastname, String email, String phone){
+    public Customer(String firstname, String lastname, String email, String phone){
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -20,10 +20,32 @@ public class Customer{
         id = ++maxId;
     }
 
+    public void setValues(String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+    }
+
+    public void setValues(String firstname, String lastname, String email, String phone) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public String getFirstname(){ return firstname;}
+    public String getLastname(){ return lastname;}
+    public String getPhone(){ return phone;}
+
+    public String getEmail() { return email; }
     public int getId(){
         return id;
     }
 
     public String getFullName() { return (firstname + " " +lastname); }
 
+    @Override
+    public String toString() {
+        return id + " - " + firstname + " " + lastname + " " + email + " " + phone;
+    }
 }
