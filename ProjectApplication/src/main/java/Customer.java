@@ -1,37 +1,52 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class Customer implements Comparable<Customer>{
+public class Customer{
+    private static int maxId;
     private int id;
     private String firstname, lastname,email,phone;
 
-    public Customer(ArrayList<Customer> customers, String firstname, String lastname, String email){
+    public Customer(String firstname, String lastname, String email){
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        id = Collections.max(customers).getId() + 1;
+        id = ++maxId;
     }
 
-    public Customer(ArrayList<Customer> customers,String firstname, String lastname, String email, String phone){
+    public Customer(String firstname, String lastname, String email, String phone){
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
-        id = Collections.max(customers).getId() + 1;
+        id = ++maxId;
     }
 
+    public void setValues(String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+    }
+
+    public void setValues(String firstname, String lastname, String email, String phone) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public String getFirstname(){ return firstname;}
+    public String getLastname(){ return lastname;}
+    public String getPhone(){ return phone;}
+
+    public String getEmail() { return email; }
     public int getId(){
         return id;
     }
 
+    public String getFullName() { return (firstname + " " +lastname); }
+
     @Override
-    public int compareTo(Customer o) {
-        if (this.getId() > o.getId()){
-            return 1;
-        }
-        else if (this.getId() < o.getId()){
-            return -1;
-        }
-        return 0;
+    public String toString() {
+        if(phone == null || phone.equals("")) return id + " - " + firstname + " " + lastname + " " + email;
+        else return id + " - " + firstname + " " + lastname + " " + email + " " + phone;
     }
 }
