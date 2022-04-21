@@ -46,6 +46,7 @@ public class Customer{
 
     @Override
     public String toString() {
-        return id + " - " + firstname + " " + lastname + " " + email + " " + phone;
+        if(phone == null || phone.equals("")) return id + " - " + firstname + " " + lastname + " " + email;
+        else return id + " - " + firstname + " " + lastname + " " + email + " " + phone;
     }
 }

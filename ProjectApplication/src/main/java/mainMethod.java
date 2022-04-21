@@ -15,7 +15,7 @@ public class mainMethod {
             System.out.println("5. Delete Customer");
             System.out.println("Enter number to continue (0 to stop, 9 to save):");
             input = scanner.nextInt();
-
+            scanner.nextLine(); // Consume newline left-over
             switch (input) {
                 case 1:
                     System.out.println("Enter First Name: ");
@@ -36,7 +36,7 @@ public class mainMethod {
                                 System.out.println("This e-mail-address already exists in the database, please enter another e-mail-address");
                             }
                         }
-                    } while (!found);
+                    } while (found);
                     System.out.println("Enter phone number (optional): ");
                     String phonenumber = scanner.nextLine();
                     if (phonenumber.equals("")) customers.add(new Customer(firstname, lastname, email));
@@ -50,7 +50,7 @@ public class mainMethod {
                     while (iterator.hasNext()) {
                         System.out.println(iterator.next());
                     }
-
+                    System.out.println("-------------------------");
 
                     break;
                 case 3:
@@ -90,14 +90,18 @@ public class mainMethod {
                                 iterator = customers.iterator();
                                 while (iterator.hasNext()) {
                                     Customer customer = iterator.next();
-                                    found = true;
+                                    boolean mainfound = false;
+                                    boolean localnotfound;
                                     for (int i = 0; i <= customer.getFullName().length() - name.length(); i++) {
+                                        localnotfound = true;
                                         for (int j = 0; j < name.length(); j++) {
-                                            if (!customer.getFullName().substring(i + j, i + j + 1).equals(name.substring(j, j + 1)))
-                                                found = false;
+                                            if (!customer.getFullName().substring(i + j, i + j + 1).equals(name.substring(j, j + 1))) {
+                                                localnotfound = false;
+                                            }
+                                            if(localnotfound) mainfound = true;
                                         }
                                     }
-                                    if (found) {
+                                    if (mainfound) {
                                         foundCustomers.add(customer);
                                     }
                                 }
@@ -110,6 +114,7 @@ public class mainMethod {
                                         System.out.println((i + 1) + ". " + foundCustomers.get(i));
                                     }
                                 }
+                                System.out.println("-------------------------");
                                 break;
 
                             case "c":
@@ -144,6 +149,7 @@ public class mainMethod {
                     found = false;
                     System.out.println("Enter customer ID to Update:");
                     int id = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline left-over
                     System.out.println("-------------------------");
                     for (Customer customer : customers) {
                         if (customer.getId() == id) {
@@ -167,10 +173,10 @@ public class mainMethod {
                                         System.out.println("This e-mail-address is not available, please enter another e-mail-address or press enter to skip");
                                     }
                                 }
-                            } while (!found2);
+                            } while (found2);
                             if (email.equals("")) email = customer.getEmail();
 
-                            if (customer.getPhone().equals(""))
+                            if (customer.getPhone()== null)
                                 System.out.println("Enter new phone number (Enter to skip, current phone number not set yet");
                             else
                                 System.out.println("Enter new phone number (Enter to skip, current phone number: " + customer.getPhone() + ")");
