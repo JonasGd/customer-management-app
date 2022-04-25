@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="24" failures="0" name="mainTest" time="0.125" errors="0" skipped="0">
+<testsuite tests="24" failures="0" name="mainTest" time="0.195" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2021.3.2"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -61,28 +61,28 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="mainTest" name="addNewCustomer" time="0.054"/>
-  <testcase classname="mainTest" name="deleteCustomer" time="0.001"/>
-  <testcase classname="mainTest" name="findCustomersByNotUniqueName" time="0.012"/>
-  <testcase classname="mainTest" name="findCustomersByMailNotFound" time="0.002"/>
-  <testcase classname="mainTest" name="updateAddPhonenumber" time="0.011"/>
-  <testcase classname="mainTest" name="findCustomerByFirstName" time="0.003"/>
-  <testcase classname="mainTest" name="addNewCustomerWithoutPhone" time="0.002"/>
-  <testcase classname="mainTest" name="findCustomerByPartialName" time="0.002"/>
-  <testcase classname="mainTest" name="updateMailToExisting" time="0.004"/>
-  <testcase classname="mainTest" name="showTwoCustomers" time="0.002"/>
-  <testcase classname="mainTest" name="findCustomerById" time="0.002"/>
-  <testcase classname="mainTest" name="findCustomerByFullName" time="0.002"/>
+  <testcase classname="mainTest" name="addNewCustomer" time="0.09"/>
+  <testcase classname="mainTest" name="deleteCustomer" time="0.002"/>
+  <testcase classname="mainTest" name="findCustomersByNotUniqueName" time="0.022"/>
+  <testcase classname="mainTest" name="findCustomersByMailNotFound" time="0.004"/>
+  <testcase classname="mainTest" name="updateAddPhonenumber" time="0.016"/>
+  <testcase classname="mainTest" name="findCustomerByFirstName" time="0.004"/>
+  <testcase classname="mainTest" name="addNewCustomerWithoutPhone" time="0.004"/>
+  <testcase classname="mainTest" name="findCustomerByPartialName" time="0.003"/>
+  <testcase classname="mainTest" name="updateMailToExisting" time="0.005"/>
+  <testcase classname="mainTest" name="showTwoCustomers" time="0.004"/>
+  <testcase classname="mainTest" name="findCustomerById" time="0.004"/>
+  <testcase classname="mainTest" name="findCustomerByFullName" time="0.003"/>
   <testcase classname="mainTest" name="showOneCustomers" time="0.002"/>
-  <testcase classname="mainTest" name="showNoCustomers" time="0.002"/>
+  <testcase classname="mainTest" name="showNoCustomers" time="0.001"/>
   <testcase classname="mainTest" name="findCustomersWrongCharacter" time="0.002"/>
   <testcase classname="mainTest" name="findCustomersByMail" time="0.003"/>
-  <testcase classname="mainTest" name="updateFirstName" time="0.003"/>
-  <testcase classname="mainTest" name="findCustomerByUniqueName" time="0.002"/>
-  <testcase classname="mainTest" name="findCustomersReturn" time="0.001"/>
+  <testcase classname="mainTest" name="updateFirstName" time="0.005"/>
+  <testcase classname="mainTest" name="findCustomerByUniqueName" time="0.003"/>
+  <testcase classname="mainTest" name="findCustomersReturn" time="0.003"/>
   <testcase classname="mainTest" name="updateMailToSame" time="0.004"/>
   <testcase classname="mainTest" name="findCustomerByNotExistingId" time="0.002"/>
-  <testcase classname="mainTest" name="addTwoNewCustomersSameMail" time="0.003"/>
+  <testcase classname="mainTest" name="addTwoNewCustomersSameMail" time="0.004"/>
   <testcase classname="mainTest" name="updateCustomerNotFound" time="0.002"/>
-  <testcase classname="mainTest" name="addTwoNewCustomers" time="0.002"/>
+  <testcase classname="mainTest" name="addTwoNewCustomers" time="0.003"/>
 </testsuite>
