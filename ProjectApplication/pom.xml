@@ -46,7 +46,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>src.main.java.mainMethod</mainClass>
+                            <mainClass>mainMethod</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -65,7 +65,7 @@
                     <!--MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>src.main.java.mainMethod</mainClass>
+                            <mainClass>mainMethod</mainClass>
                         </manifest>
                     </archive>
 
