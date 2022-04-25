@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="9" failures="1" name="mainTest" time="0.193" errors="0" skipped="0">
+<testsuite tests="12" failures="1" name="mainTest" time="0.104" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2021.3.2"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -61,17 +61,18 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="mainTest" name="addNewCustomer" time="0.105"/>
-  <testcase classname="mainTest" name="addNewCustomerWithoutPhone" time="0.011"/>
-  <testcase classname="mainTest" name="showTwoCustomers" time="0.022"/>
-  <testcase classname="mainTest" name="findCustomerById" time="0.004"/>
-  <testcase classname="mainTest" name="showOneCustomers" time="0.006"/>
-  <testcase classname="mainTest" name="showNoCustomers" time="0.003"/>
-  <testcase classname="mainTest" name="findCustomersReturn" time="0.025">
-    <failure message="expected:&lt;[-------------------------]&gt; but was:&lt;[x to return]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[-------------------------]&gt; but was:&lt;[x to return]&gt;
+  <testcase classname="mainTest" name="addNewCustomer" time="0.066"/>
+  <testcase classname="mainTest" name="addNewCustomerWithoutPhone" time="0.002"/>
+  <testcase classname="mainTest" name="showTwoCustomers" time="0.01"/>
+  <testcase classname="mainTest" name="findCustomerById" time="0.002"/>
+  <testcase classname="mainTest" name="findCustomerByFullName" time="0.005"/>
+  <testcase classname="mainTest" name="showOneCustomers" time="0.002"/>
+  <testcase classname="mainTest" name="showNoCustomers" time="0.002"/>
+  <testcase classname="mainTest" name="findCustomerByUniqueName" time="0.008">
+    <failure message="expected:&lt;[2 - test2 test2 test2@test2]&gt; but was:&lt;[1 - test test test@test]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[2 - test2 test2 test2@test2]&gt; but was:&lt;[1 - test test test@test]&gt;
 	at org.junit.Assert.assertEquals(Assert.java:117)
 	at org.junit.Assert.assertEquals(Assert.java:146)
-	at mainTest.findCustomersReturn(mainTest.java:133)
+	at mainTest.findCustomerByUniqueName(mainTest.java:184)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -106,6 +107,8 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </failure>
   </testcase>
-  <testcase classname="mainTest" name="addTwoNewCustomersSameMail" time="0.007"/>
-  <testcase classname="mainTest" name="addTwoNewCustomers" time="0.01"/>
+  <testcase classname="mainTest" name="findCustomersReturn" time="0.001"/>
+  <testcase classname="mainTest" name="findCustomerByNotExistingId" time="0.002"/>
+  <testcase classname="mainTest" name="addTwoNewCustomersSameMail" time="0.002"/>
+  <testcase classname="mainTest" name="addTwoNewCustomers" time="0.002"/>
 </testsuite>
