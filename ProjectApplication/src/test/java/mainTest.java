@@ -17,7 +17,7 @@ public class mainTest {
         catch(IOException e){}
     }
 
-    public void OneCustomer(){
+    public void oneCustomer(){
         try {
             FileWriter emptyFile = new FileWriter("customers.txt");
             emptyFile.write("1\n1\ttest\ttest\ttest@test");
@@ -26,7 +26,7 @@ public class mainTest {
         catch(IOException e){}
     }
 
-    public void TwoCustomers(){
+    public void twoCustomers(){
         try {
             FileWriter emptyFile = new FileWriter("customers.txt");
             emptyFile.write("2\n1\ttest\ttest\ttest@test\n2\ttest2\ttest2\ttest2@test2\ttest");
@@ -100,7 +100,7 @@ public class mainTest {
 
     @Test
     public void showOneCustomers(){
-        OneCustomer();
+        oneCustomer();
         String userInput = "2\n0";
         String expected = "1 - test test test@test";
 
@@ -111,7 +111,7 @@ public class mainTest {
     }
     @Test
     public void showTwoCustomers(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "2\n0";
         String expected1 = "1 - test test test@test";
         String expected2 = "2 - test2 test2 test2@test2 test";
@@ -126,7 +126,7 @@ public class mainTest {
 
     @Test
     public void findCustomersReturn(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nx\n0";
         String expected = "x to return";
 
@@ -138,7 +138,7 @@ public class mainTest {
 
     @Test
     public void findCustomerById(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\na\n2\n0";
         String expected = "2 - test2 test2 test2@test2 test";
 
@@ -150,7 +150,7 @@ public class mainTest {
 
     @Test
     public void findCustomerByNotExistingId(){
-        OneCustomer();
+        oneCustomer();
         String userInput = "3\na\n2\n0";
         String expected = "Customer not found";
 
@@ -162,7 +162,7 @@ public class mainTest {
 
     @Test
     public void findCustomerByFullName(){
-        OneCustomer();
+        oneCustomer();
         String userInput = "3\nb\ntest test\n0";
         String expected = "1 - test test test@test";
 
@@ -174,7 +174,7 @@ public class mainTest {
 
     @Test
     public void findCustomerByUniqueName(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nb\ntest2 test2\n0";
         String expected = "2 - test2 test2 test2@test2 test";
 
@@ -186,7 +186,7 @@ public class mainTest {
 
     @Test
     public void findCustomerByFirstName(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nb\ntest2\n0";
         String expected = "2 - test2 test2 test2@test2 test";
 
@@ -198,7 +198,7 @@ public class mainTest {
 
     @Test
     public void findCustomerByPartialName(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nb\nest2\n0";
         String expected = "2 - test2 test2 test2@test2 test";
 
@@ -210,7 +210,7 @@ public class mainTest {
 
     @Test
     public void findCustomersByNotUniqueName(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nb\ntest\n0";
         String expected1 = "1 - test test test@test";
         String expected2 = "2 - test2 test2 test2@test2 test";
@@ -225,7 +225,7 @@ public class mainTest {
 
     @Test
     public void findCustomersByMail(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nc\ntest@test\n0";
         String expected = "1 - test test test@test";
 
@@ -237,7 +237,7 @@ public class mainTest {
 
     @Test
     public void findCustomersByMailNotFound(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nc\ntest@test2\n0";
         String expected = "Customer not found";
 
@@ -249,7 +249,7 @@ public class mainTest {
 
     @Test
     public void findCustomersWrongCharacter(){
-        TwoCustomers();
+        twoCustomers();
         String userInput = "3\nd\nx\n0";
         String expected = "Please enter a valid character";
 
@@ -258,6 +258,84 @@ public class mainTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void updateFirstName(){
+        oneCustomer();
+        String empty = "";
+        String userInput = "4\n1\ntest2\n"+empty+"\n"+empty+"\n"+empty+"\n3\na\n1\n0";
+        String expected = "1 - test2 test test@test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void updateAddPhonenumber(){
+        oneCustomer();
+        String empty = "";
+        String userInput = "4\n1\n"+empty+"\n"+empty+"\n"+empty+"\n0479000000\n3\na\n1\n0";
+        String expected = "1 - test test test@test 0479000000";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void updateMailToExisting(){
+        twoCustomers();
+        String empty = "";
+        String userInput = "4\n1\n"+empty+"\n"+empty+"\ntest2@test2\ntest2@test\n"+empty+"\n3\na\n1\n0";
+        String expected = "1 - test test test2@test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void updateMailToSame(){
+        twoCustomers();
+        String empty = "";
+        String userInput = "4\n1\n"+empty+"\n"+empty+"\ntest@test\n"+empty+"\n3\na\n1\n0";
+        String expected = "1 - test test test@test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void updateCustomerNotFound(){
+        twoCustomers();
+        String userInput = "4\n8\n0";
+        String expected = "Customer Not Found";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void deleteCustomer(){
+        oneCustomer();
+        String userInput = "5\n1\n2\n0";
+        String expected = "-------------------------";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
 
     public String[]  runWithInput(String userInput){
 

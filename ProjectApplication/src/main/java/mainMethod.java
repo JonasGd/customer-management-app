@@ -148,25 +148,25 @@ public class mainMethod {
                 case 4:
                     found = false;
                     System.out.println("Enter customer ID to Update:");
-                    int id = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline left-over
+                    int id = Integer.parseInt(scanner.nextLine());
                     System.out.println("-------------------------");
                     for (Customer customer : customers) {
                         if (customer.getId() == id) {
                             System.out.println("Enter new First Name (Enter to skip, current first name: " + customer.getFirstname() + ")");
                             firstname = scanner.nextLine();
-                            if (firstname.equals("")) firstname = customer.getFirstname();
+                            if (firstname.equals("")||firstname == null) firstname = customer.getFirstname();
 
                             System.out.println("Enter new Last Name (Enter to skip, current last name: " + customer.getLastname() + ")");
                             lastname = scanner.nextLine();
-                            if (lastname.equals("")) lastname = customer.getLastname();
+                            if (lastname.equals("")|| lastname == null) lastname = customer.getLastname();
 
-                            boolean found2 = false;
+                            boolean found2;
                             do {
+                                found2 = false;
                                 System.out.println("Enter new e-mail-address (Enter to skip, current e-mail-address: " + customer.getEmail() + ")");
                                 iterator = customers.iterator();
                                 email = scanner.nextLine();
-                                while (iterator.hasNext() && !email.equals("")) {
+                                while (iterator.hasNext() && !email.equals("") && email != null) {
                                     Customer customer2 = iterator.next();
                                     if (customer2.getEmail().equals(email) && customer2.getId() != id) {
                                         found2 = true;
@@ -174,15 +174,15 @@ public class mainMethod {
                                     }
                                 }
                             } while (found2);
-                            if (email.equals("")) email = customer.getEmail();
+                            if (email.equals("")||email == null) email = customer.getEmail();
 
                             if (customer.getPhone()== null)
                                 System.out.println("Enter new phone number (Enter to skip, current phone number not set yet");
                             else
                                 System.out.println("Enter new phone number (Enter to skip, current phone number: " + customer.getPhone() + ")");
                             phonenumber = scanner.nextLine();
-                            if (phonenumber.equals("")) phonenumber = customer.getPhone();
-                            if (phonenumber.equals("")) customer.setValues(firstname, lastname, email);
+                            if (phonenumber == null || phonenumber.equals("")) phonenumber = customer.getPhone();
+                            if (phonenumber == null || phonenumber.equals("")) customer.setValues(firstname, lastname, email);
                             else customer.setValues(firstname, lastname, email, phonenumber);
 
                             found = true;
@@ -202,7 +202,7 @@ public class mainMethod {
                 case 5:
                     found = false;
                     System.out.println("Enter customer ID to Delete:");
-                    id = scanner.nextInt();
+                    id = Integer.parseInt(scanner.nextLine());
                     System.out.println("-------------------------");
                     iterator = customers.iterator();
                     while (iterator.hasNext()) {
