@@ -17,9 +17,8 @@ public class mainMethod {
             System.out.println("3. Find Customer");
             System.out.println("4. Update Customer");
             System.out.println("5. Delete Customer");
-            System.out.println("Enter number to continue (0 to stop, 9 to save):");
-            input = scanner.nextInt();
-            scanner.nextLine(); // Consume newline left-over
+            System.out.println("Enter number to continue (0 to stop):");
+            input = Integer.parseInt(scanner.nextLine());
             switch (input) {
                 case 1:
                     System.out.println("Enter First Name: ");
@@ -72,7 +71,7 @@ public class mainMethod {
                             case "a":
                                 found = false;
                                 System.out.println("Enter id to Search:");
-                                int id = scanner.nextInt();
+                                int id = Integer.parseInt(scanner.nextLine());
                                 System.out.println("-------------------------");
                                 iterator = customers.iterator();
                                 while (iterator.hasNext()) {
@@ -273,6 +272,7 @@ public class mainMethod {
                 else customers.add(new Customer(id, firstname,lastname, email, phone));
             }
             if(!customers.isEmpty()) customers.get(0).setMaxId(maxId);
+            else new Customer("","","").setMaxId(0);
         }
         catch (IOException e) {
             System.out.println("There was a problem reading the file");
