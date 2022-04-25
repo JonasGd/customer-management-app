@@ -35,6 +35,7 @@ public class mainTest {
         catch(IOException e){}
     }
 
+
     @Test
     public void addTwoNewCustomers(){
         emptyCustomers();
@@ -46,6 +47,8 @@ public class mainTest {
 
         Assert.assertEquals(expected, actual);
     }
+
+
 
     @Test
     public void addTwoNewCustomersSameMail(){
@@ -138,6 +141,42 @@ public class mainTest {
         TwoCustomers();
         String userInput = "3\na\n2\n0";
         String expected = "2 - test2 test2 test2@test2 test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomerByNotExistingId(){
+        OneCustomer();
+        String userInput = "3\na\n2\n0";
+        String expected = "Customer not found";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomerByFullName(){
+        OneCustomer();
+        String userInput = "3\nb\ntest test\n0";
+        String expected = "1 - test test test@test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomerByUniqueName(){
+        OneCustomer();
+        String userInput = "3\nb\ntest2\n0";
+        String expected = "2 - test2 test2 test2@test2";
 
         String[] lines = runWithInput(userInput);
         String actual = lines[lines.length-8];
