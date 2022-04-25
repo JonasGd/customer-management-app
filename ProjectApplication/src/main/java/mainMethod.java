@@ -1,24 +1,31 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class mainMethod {
     public static void main(String[] args) {
         ArrayList<Customer> customers = readFile();
         Scanner scanner = new Scanner(System.in);
-        int input;
+        int input=-1;
         do {
+            boolean isNumber;
+
             System.out.println("1. New Customer");
             System.out.println("2. Show all Customers");
             System.out.println("3. Find Customer");
             System.out.println("4. Update Customer");
             System.out.println("5. Delete Customer");
-            System.out.println("Enter number to continue (0 to stop):");
-            input = Integer.parseInt(scanner.nextLine());
+            do {
+                isNumber=true;
+                System.out.println("Enter number to continue (0 to stop):");
+                try {
+                    input = Integer.parseInt(scanner.nextLine());
+                } catch(NumberFormatException e){
+                    isNumber = false;
+                }
+            }while(isNumber && input >0);
             switch (input) {
                 case 1:
                     System.out.println("Enter First Name: ");
@@ -97,7 +104,7 @@ public class mainMethod {
                                     Customer customer = iterator.next();
                                     boolean mainfound = false;
                                     for (int i = 0; i <= customer.getFullName().length() - name.length(); i++) {
-                                        if(customer.getFullName().startsWith(name, i)) {
+                                        if(customer.getFullName().toLowerCase().startsWith(name.toLowerCase(), i)) {
                                             mainfound = true;
                                         }
                                     }
@@ -147,26 +154,33 @@ public class mainMethod {
 
                 case 4:
                     found = false;
-                    System.out.println("Enter customer ID to Update:");
-                    int id = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline left-over
+                    int id = -1;
+                    do {
+                        System.out.println("Enter customer ID to Update:");
+                        try{
+                            id = Integer.parseInt(scanner.nextLine());
+                        } catch(NumberFormatException e){
+                            isNumber = false;
+                        }
+                    }while(isNumber && id>0);
                     System.out.println("-------------------------");
                     for (Customer customer : customers) {
                         if (customer.getId() == id) {
                             System.out.println("Enter new First Name (Enter to skip, current first name: " + customer.getFirstname() + ")");
                             firstname = scanner.nextLine();
-                            if (firstname.equals("")) firstname = customer.getFirstname();
+                            if (firstname.equals("")||firstname == null) firstname = customer.getFirstname();
 
                             System.out.println("Enter new Last Name (Enter to skip, current last name: " + customer.getLastname() + ")");
                             lastname = scanner.nextLine();
-                            if (lastname.equals("")) lastname = customer.getLastname();
+                            if (lastname.equals("")|| lastname == null) lastname = customer.getLastname();
 
-                            boolean found2 = false;
+                            boolean found2;
                             do {
+                                found2 = false;
                                 System.out.println("Enter new e-mail-address (Enter to skip, current e-mail-address: " + customer.getEmail() + ")");
                                 iterator = customers.iterator();
                                 email = scanner.nextLine();
-                                while (iterator.hasNext() && !email.equals("")) {
+                                while (iterator.hasNext() && !email.equals("") && email != null) {
                                     Customer customer2 = iterator.next();
                                     if (customer2.getEmail().equals(email) && customer2.getId() != id) {
                                         found2 = true;
@@ -174,15 +188,15 @@ public class mainMethod {
                                     }
                                 }
                             } while (found2);
-                            if (email.equals("")) email = customer.getEmail();
+                            if (email.equals("")||email == null) email = customer.getEmail();
 
                             if (customer.getPhone()== null)
                                 System.out.println("Enter new phone number (Enter to skip, current phone number not set yet");
                             else
                                 System.out.println("Enter new phone number (Enter to skip, current phone number: " + customer.getPhone() + ")");
                             phonenumber = scanner.nextLine();
-                            if (phonenumber.equals("")) phonenumber = customer.getPhone();
-                            if (phonenumber.equals("")) customer.setValues(firstname, lastname, email);
+                            if (phonenumber == null || phonenumber.equals("")) phonenumber = customer.getPhone();
+                            if (phonenumber == null || phonenumber.equals("")) customer.setValues(firstname, lastname, email);
                             else customer.setValues(firstname, lastname, email, phonenumber);
 
                             found = true;
@@ -201,8 +215,15 @@ public class mainMethod {
 
                 case 5:
                     found = false;
-                    System.out.println("Enter customer ID to Delete:");
-                    id = scanner.nextInt();
+                    id=-1;
+                    do {
+                        System.out.println("Enter customer ID to Delete:");
+                        try {
+                            id = Integer.parseInt(scanner.nextLine());
+                        }catch(NumberFormatException e){
+                            isNumber = false;
+                        }
+                    }while(isNumber && id>0);
                     System.out.println("-------------------------");
                     iterator = customers.iterator();
                     while (iterator.hasNext()) {
@@ -269,9 +290,11 @@ public class mainMethod {
             if(!customers.isEmpty()) customers.get(0).setMaxId(maxId);
             else new Customer("","","").setMaxId(0);
         }
+        catch (FileNotFoundException e1){
+            System.out.println("The file customers.txt didn't exist, a new file will be created");
+        }
         catch (IOException e) {
             System.out.println("There was a problem reading the file");
-            e.printStackTrace();
         }
         finally{
             try{
