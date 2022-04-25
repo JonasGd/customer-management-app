@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class mainMethod {
@@ -25,7 +24,7 @@ public class mainMethod {
                 } catch(NumberFormatException e){
                     isNumber = false;
                 }
-            }while(isNumber && input >0);
+            }while(!isNumber && input>=0);
             switch (input) {
                 case 1:
                     System.out.println("Enter First Name: ");
@@ -162,7 +161,7 @@ public class mainMethod {
                         } catch(NumberFormatException e){
                             isNumber = false;
                         }
-                    }while(isNumber && id>0);
+                    }while(!isNumber && id>0);
                     System.out.println("-------------------------");
                     for (Customer customer : customers) {
                         if (customer.getId() == id) {
@@ -223,7 +222,7 @@ public class mainMethod {
                         }catch(NumberFormatException e){
                             isNumber = false;
                         }
-                    }while(isNumber && id>0);
+                    }while(!isNumber && id>0);
                     System.out.println("-------------------------");
                     iterator = customers.iterator();
                     while (iterator.hasNext()) {
