@@ -46,12 +46,12 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.mypackage.MyClass</mainClass>
+                            <mainClass>src.main.java.mainMethod</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
-            
+
             <!--Maven Assembly Plugin-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,7 +65,7 @@
                     <!--MainClass in mainfest make a executable jar -->
                     <archive>
                         <manifest>
-                            <mainClass>com.mkyong.core.utils.App</mainClass>
+                            <mainClass>src.main.java.mainMethod</mainClass>
                         </manifest>
                     </archive>
 
