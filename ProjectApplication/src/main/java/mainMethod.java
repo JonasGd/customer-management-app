@@ -1,10 +1,14 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class mainMethod {
     public static void main(String[] args) {
-        ArrayList<Customer> customers = new ArrayList<>();
+        ArrayList<Customer> customers = readFile();
         Scanner scanner = new Scanner(System.in);
         int input;
         do {
@@ -13,9 +17,8 @@ public class mainMethod {
             System.out.println("3. Find Customer");
             System.out.println("4. Update Customer");
             System.out.println("5. Delete Customer");
-            System.out.println("Enter number to continue (0 to stop, 9 to save):");
-            input = scanner.nextInt();
-            scanner.nextLine(); // Consume newline left-over
+            System.out.println("Enter number to continue (0 to stop):");
+            input = Integer.parseInt(scanner.nextLine());
             switch (input) {
                 case 1:
                     System.out.println("Enter First Name: ");
@@ -24,8 +27,9 @@ public class mainMethod {
                     String lastname = scanner.nextLine();
                     String email;
                     Iterator<Customer> iterator;
-                    boolean found = false;
+                    boolean found;
                     do {
+                        found = false;
                         System.out.println("Enter e-mail-address: ");
                         iterator = customers.iterator();
                         email = scanner.nextLine();
@@ -42,6 +46,7 @@ public class mainMethod {
                     if (phonenumber.equals("")) customers.add(new Customer(firstname, lastname, email));
                     else customers.add(new Customer(firstname, lastname, email, phonenumber));
                     System.out.println("New customer created with customer id " + customers.get(customers.size() - 1).getId());
+                    saveFile(customers);
                     break;
 
                 case 2:
@@ -66,7 +71,7 @@ public class mainMethod {
                             case "a":
                                 found = false;
                                 System.out.println("Enter id to Search:");
-                                int id = scanner.nextInt();
+                                int id = Integer.parseInt(scanner.nextLine());
                                 System.out.println("-------------------------");
                                 iterator = customers.iterator();
                                 while (iterator.hasNext()) {
@@ -193,6 +198,7 @@ public class mainMethod {
                         System.out.println("Customer Not Found");
                     }
                     else{
+                        saveFile(customers);
                         System.out.println("Customer Info is Updated Successfully!");
                     }
                     System.out.println("-------------------------");
@@ -214,6 +220,7 @@ public class mainMethod {
                     if (!found) {
                         System.out.println("Record Not Found");
                     } else {
+                        saveFile(customers);
                         System.out.println("Record is Deleted Successfully");
                     }
                     System.out.println("-------------------------");
@@ -223,12 +230,76 @@ public class mainMethod {
         } while (input != 0);
     }
 
-    private void readFile(){
-
+    private static ArrayList<Customer> readFile(){
+        ArrayList<Customer> customers = new ArrayList<>();
+        BufferedReader in = null;
+        try{
+            in = new BufferedReader(new FileReader("customers.txt"));
+            String read;
+            int count;
+            boolean firstline = true;
+            int maxId=0;
+            while((read = in.readLine()) != null) {
+                int id = 0;
+                String firstname="", lastname="", email="", phone="";
+                String[] splitted = read.split("\t");
+                count = 0;
+                for (String part : splitted) {
+                    if(firstline){
+                        maxId = Integer.parseInt(part);
+                    }
+                    else switch(count){
+                        case 0:
+                            id = Integer.parseInt(part);
+                            break;
+                        case 1:
+                            firstname = part;
+                            break;
+                        case 2:
+                            lastname = part;
+                            break;
+                        case 3:
+                            email = part;
+                            break;
+                        case 4:
+                            phone = part;
+                            break;
+                    }
+                    count++;
+                }
+                if(firstline) firstline = false;
+                else if(phone=="") customers.add(new Customer(id, firstname,lastname, email));
+                else customers.add(new Customer(id, firstname,lastname, email, phone));
+            }
+            if(!customers.isEmpty()) customers.get(0).setMaxId(maxId);
+            else new Customer("","","").setMaxId(0);
+        }
+        catch (IOException e) {
+            System.out.println("There was a problem reading the file");
+            e.printStackTrace();
+        }
+        finally{
+            try{
+                in.close();
+            } catch (Exception e){
+            }
+        }
+        return customers;
     }
 
-    private void saveFile(){
-
+    private static void saveFile(ArrayList<Customer> customers){
+        try{
+            FileWriter savedFile = new FileWriter("customers.txt");
+            if(!customers.isEmpty()) savedFile.write(Integer.toString(customers.get(0).getMaxId())+"\n");
+            for(Customer customer: customers){
+                savedFile.write(customer.savingToString() + "\n");
+            }
+            savedFile.close();
+        }
+        catch (IOException e){
+            System.out.println("An error occurred writing the file");
+            e.printStackTrace();
+        }
     }
 }
 
