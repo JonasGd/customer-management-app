@@ -174,9 +174,9 @@ public class mainTest {
 
     @Test
     public void findCustomerByUniqueName(){
-        OneCustomer();
-        String userInput = "3\nb\ntest2\n0";
-        String expected = "2 - test2 test2 test2@test2";
+        TwoCustomers();
+        String userInput = "3\nb\ntest2 test2\n0";
+        String expected = "2 - test2 test2 test2@test2 test";
 
         String[] lines = runWithInput(userInput);
         String actual = lines[lines.length-8];
@@ -184,6 +184,80 @@ public class mainTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void findCustomerByFirstName(){
+        TwoCustomers();
+        String userInput = "3\nb\ntest2\n0";
+        String expected = "2 - test2 test2 test2@test2 test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomerByPartialName(){
+        TwoCustomers();
+        String userInput = "3\nb\nest2\n0";
+        String expected = "2 - test2 test2 test2@test2 test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomersByNotUniqueName(){
+        TwoCustomers();
+        String userInput = "3\nb\ntest\n0";
+        String expected1 = "1 - test test test@test";
+        String expected2 = "2 - test2 test2 test2@test2 test";
+
+        String[] lines = runWithInput(userInput);
+        String actual1 = lines[lines.length-9];
+        String actual2 = lines[lines.length-8];
+
+        Assert.assertEquals(expected1, actual1);
+        Assert.assertEquals(expected2, actual2);
+    }
+
+    @Test
+    public void findCustomersByMail(){
+        TwoCustomers();
+        String userInput = "3\nc\ntest@test\n0";
+        String expected = "1 - test test test@test";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomersByMailNotFound(){
+        TwoCustomers();
+        String userInput = "3\nc\ntest@test2\n0";
+        String expected = "Customer not found";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-8];
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void findCustomersWrongCharacter(){
+        TwoCustomers();
+        String userInput = "3\nd\nx\n0";
+        String expected = "Please enter a valid character";
+
+        String[] lines = runWithInput(userInput);
+        String actual = lines[lines.length-11];
+
+        Assert.assertEquals(expected, actual);
+    }
 
     public String[]  runWithInput(String userInput){
 

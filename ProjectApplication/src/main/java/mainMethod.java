@@ -96,14 +96,9 @@ public class mainMethod {
                                 while (iterator.hasNext()) {
                                     Customer customer = iterator.next();
                                     boolean mainfound = false;
-                                    boolean localnotfound;
                                     for (int i = 0; i <= customer.getFullName().length() - name.length(); i++) {
-                                        localnotfound = true;
-                                        for (int j = 0; j < name.length(); j++) {
-                                            if (!customer.getFullName().substring(i + j, i + j + 1).equals(name.substring(j, j + 1))) {
-                                                localnotfound = false;
-                                            }
-                                            if(localnotfound) mainfound = true;
+                                        if(customer.getFullName().startsWith(name, i)) {
+                                            mainfound = true;
                                         }
                                     }
                                     if (mainfound) {
@@ -116,7 +111,7 @@ public class mainMethod {
                                     System.out.println(foundCustomers.get(0));
                                 } else {
                                     for (int i = 0; i < foundCustomers.size(); i++) {
-                                        System.out.println((i + 1) + ". " + foundCustomers.get(i));
+                                        System.out.println(foundCustomers.get(i));
                                     }
                                 }
                                 System.out.println("-------------------------");
